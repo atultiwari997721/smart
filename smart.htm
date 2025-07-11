@@ -4,168 +4,463 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>S-Mart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary-color: #4A90E2; 
+      --secondary-color: #50E3C2; 
+      --dark-bg: #2C3E50; 
+      --text-color: #34495E;
+      --light-bg: #ECF0F1; 
+      --white: #ffffff;
+      --danger-color: #E74C3C; 
+      --buy-now-color: #28a745; 
+    }
+
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f9f9f9;
-      color: #333;
+      font-family: 'Open Sans', sans-serif;
+      background: var(--light-bg);
+      color: var(--text-color);
+      line-height: 1.6;
     }
+
     header {
-      background: #20232a;
-      color: #fff;
+      background: var(--dark-bg);
+      color: var(--white);
       padding: 1rem 2rem;
       display: flex;
-      align-items: center;
+      align-items: center; 
       justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
+
     .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
       display: flex;
       align-items: center;
+      line-height: 1; 
+      padding: 0; 
     }
+
     .logo span {
-      background: #61dafb;
-      color: #20232a;
-      padding: 4px 8px;
-      border-radius: 4px;
-      margin-right: 10px;
+      background: var(--primary-color);
+      color: var(--dark-bg);
+      padding: 6px 10px;
+      border-radius: 6px;
+      margin-right: 12px;
+      font-size: 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 38px; 
+      height: 38px; 
+      box-sizing: border-box; 
     }
+
+    
+    .search-and-cart-wrapper {
+        display: flex;
+        align-items: center; 
+        gap: 15px; 
+    }
+
+    .search-box {
+        flex-grow: 1; 
+    }
+
     .search-box input {
-      padding: 8px 12px;
-      border-radius: 4px;
-      border: none;
-      width: 300px;
+      padding: 10px 15px;
+      border-radius: 25px;
+      border: 1px solid var(--primary-color);
+      width: 350px; 
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      height: 40px; 
+      box-sizing: border-box; 
     }
+    .search-box input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.3);
+    }
+
     .cart-btn {
-      background: #61dafb;
-      color: #20232a;
+      background: var(--secondary-color);
+      color: var(--dark-bg);
       border: none;
-      padding: 8px 16px;
-      border-radius: 4px;
-      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: 600;
       cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px; 
+      box-sizing: border-box; 
+      white-space: nowrap; 
+    }
+    .cart-btn:hover {
+      background: #41D5B8; 
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .tagline {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 1rem;
+      font-size: 1.2rem;
+      font-family: 'Montserrat', sans-serif;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
     .container {
-      padding: 2rem;
+      padding: 3rem 2rem;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
     }
 
     .card {
-      background: white;
-      border-radius: 8px;
+      background: var(--white);
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
     }
     .card:hover {
-      transform: scale(1.15);
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
     }
     .card img {
       width: 100%;
-      height: 200px;
+      height: 220px;
       object-fit: cover;
+      border-bottom: 1px solid var(--light-bg);
     }
     .card-body {
-      padding: 1rem;
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .card-title {
-      font-size: 1.1rem;
-      font-weight: bold;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--dark-bg);
     }
     .card-price {
-      color: #61dafb;
-      margin: 0.5rem 0;
+      color: var(--primary-color);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 0.8rem 0;
+    }
+    .card-actions {
+        display: flex;
+        gap: 10px; 
+        margin-top: 1rem; 
     }
     .card button {
-      padding: 8px 12px;
+      padding: 10px 15px;
       border: none;
-      background: #20232a;
-      color: white;
-      border-radius: 4px;
+      background: var(--dark-bg);
+      color: var(--white);
+      border-radius: 8px;
       cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      flex: 1; 
+    }
+    .card button:hover {
+      background: var(--primary-color);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .card .buy-now-btn {
+        background: var(--buy-now-color); 
+    }
+    .card .buy-now-btn:hover {
+        background: #218838; 
     }
 
     .request-section {
-      margin-top: 2rem;
+      margin: 3rem auto;
+      padding: 2rem;
       text-align: center;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      max-width: 800px;
+    }
+    .request-section p {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: var(--text-color);
     }
     .request-btn {
-      padding: 10px 20px;
-      background: #ff6f61;
-      color: white;
+      padding: 12px 25px;
+      background: var(--danger-color);
+      color: var(--white);
       border: none;
-      border-radius: 5px;
-      font-size: 1rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
       cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    .request-btn:hover {
+      background: #CC332C; 
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
-    /* Modal */
+    
     .modal {
       display: none;
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.6);
       justify-content: center;
       align-items: center;
+      z-index: 1001;
+      animation: fadeIn 0.3s forwards;
     }
     .modal-content {
-      background: white;
-      padding: 2rem;
-      border-radius: 8px;
-      width: 300px;
+      background: var(--white);
+      padding: 2.5rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transform: translateY(-20px);
+      animation: slideIn 0.3s forwards;
+    }
+    .modal-content h3 {
+        font-family: 'Montserrat', sans-serif;
+        color: var(--dark-bg);
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+        font-size: 1.8rem;
+        text-align: center;
     }
     .modal-content input,
     .modal-content textarea {
-      width: 100%;
-      padding: 10px;
+      width: calc(100% - 20px);
+      padding: 12px;
       margin: 10px 0;
-      border-radius: 4px;
-      border: 1px solid #ccc;
+      border-radius: 8px;
+      border: 1px solid #DCDCDC;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    .modal-content input:focus,
+    .modal-content textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
     }
     .modal-content button {
-      background: #20232a;
-      color: white;
-      padding: 10px;
+      background: var(--primary-color);
+      color: var(--white);
+      padding: 12px;
       width: 100%;
       border: none;
-      border-radius: 4px;
+      border-radius: 8px;
       cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 1rem;
+      transition: background 0.3s ease;
     }
-    .tagline{
-        background-color: #ccc;
-        font-size: larger;
-        font-family:'Times New Roman', Times, serif;
-        font: size 1.5rem;
-        text-align: center;
+    .modal-content button:hover {
+      background: #3A7CCB; 
     }
-    .about{
-        margin-top: 10px;
-        padding: 10px;
-        background-color: #20232a;
-        color: #fff;
+    /* make for Auto Resolution change And Screen Adjustment */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes slideIn {
+        from { transform: translateY(-50px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
 
+    .about {
+      margin-top: 3rem;
+      padding: 2.5rem;
+      background-color: var(--dark-bg);
+      color: var(--white);
+      text-align: center;
     }
-    .line{
-      position: relative;
-      width: max-content;
+    .about h2 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--secondary-color);
     }
-    .ine::after{
-      content: '';
-      background-image: 2px solid linear-gradient(to right, blue , red);
-      /* border:  2px; */
-      /* border-color: linear-gradient(to right , blue , red); */
-      position:absolute;
-      bottom:0;
-      left:0;
+    .about p {
+      max-width: 900px;
+      margin: 0 auto 1.5rem auto;
+      font-size: 1rem;
+      line-height: 1.8;
+      opacity: 0.9;
+    }
+    .about p:last-child {
+        margin-bottom: 0;
+        font-size: 0.9rem;
+        opacity: 0.7;
+    }
+
+    marquee {
+        margin-top: 2rem;
+        padding: 1rem;
+        background-color: var(--primary-color);
+        color: var(--white);
+        font-size: 1.2rem;
+        font-weight: 600;
+        box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+    }
+  
+    /* make it For Mobile Compatibility */
+   
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column; 
+        gap: 1rem;
+        padding: 1rem;
+      }
+      .search-and-cart-wrapper {
+          flex-direction: row; 
+          width: 100%;
+          justify-content: center; 
+          align-items: center; 
+          gap: 10px; 
+      }
+      .search-box {
+          flex-grow: 1; 
+          max-width: 60%; 
+      }
+      .search-box input {
+        width: 100%; 
+        max-width: none; 
+      }
+      .cart-btn {
+        flex-shrink: 0; 
+        padding: 10px 15px; 
+        font-size: 0.9rem; 
+      }
+      .container {
+        padding: 2rem 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+      }
+      .card-title {
+        font-size: 1.1rem;
+      }
+      .card-price {
+        font-size: 1rem;
+      }
+      .card img {
+        height: 180px;
+      }
+      .request-section {
+        padding: 1.5rem;
+        margin: 2rem auto;
+      }
+      .about h2 {
+        font-size: 1.6rem;
+      }
+    }
+ /* For Lower Screen Size */
+    @media (max-width: 480px) {
+      header {
+        padding: 0.8rem;
+      }
+      .logo {
+        font-size: 1.5rem;
+      }
+      .logo span {
+        padding: 4px 7px;
+        margin-right: 8px;
+        font-size: 1rem;
+      }
+      .search-and-cart-wrapper {
+          flex-direction: row; 
+          gap: 10px;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+      }
+      .search-box {
+          width: 60%; 
+          max-width: none;
+      }
+      .search-box input {
+          width: 100%;
+      }
+      .cart-btn {
+          width: auto; 
+          padding: 8px 12px;
+          font-size: 0.85rem;
+      }
+      .tagline {
+        font-size: 1rem;
+        padding: 0.8rem;
+      }
+      .container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        padding: 1.5rem 0.5rem;
+      }
+      .card img {
+        height: 120px;
+      }
+      .card-body {
+        padding: 0.8rem;
+      }
+      .card-title {
+        font-size: 0.9rem;
+        margin-bottom: 0.2rem;
+      }
+      .card-price {
+        font-size: 0.85rem;
+        margin: 0.3rem 0;
+      }
+      .card-actions {
+          flex-direction: column;
+          gap: 5px;
+      }
+      .card button {
+        padding: 8px 10px;
+        font-size: 0.8rem;
+      }
+      .request-btn {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+      .modal-content {
+        padding: 1.5rem;
+      }
+      .modal-content h3 {
+        font-size: 1.5rem;
+      }
+      marquee {
+        font-size: 1rem;
+        padding: 0.8rem;
+      }
     }
   </style>
 </head>
@@ -173,75 +468,186 @@
 
   <header>
     <div class="logo"><span>SM</span>S-Mart</div>
-    <div class="search-box">
-      <input type="text" id="search" placeholder="Search products..." onkeyup="filterProducts()">
+    <div class="search-and-cart-wrapper">
+      <div class="search-box">
+        <input type="text" id="search" placeholder="Search products..." onkeyup="filterProducts()">
+      </div>
+      <button class="cart-btn" id="cart-button">
+        🛒 Cart (<span id="cart-count">0</span>)
+      </button>
     </div>
-    <button class="cart-btn">🛒 Cart</button>
   </header>
-  <!-- <div class="line">
-My text
-  </div> -->
-    <p class="tagline"><strong>Smart people choose S-Mart</strong></p>
-<hr>
+  <p class="tagline"><strong>Smart people choose S-Mart</strong></p>
+
   <div class="container" id="product-list">
-    <div class="card">
-      <img src="https://via.placeholder.com/300x200/61dafb/000?text=Smartphone" alt="">
+    <div class="card" data-product-name="Smartphone" data-product-price="499">
+      <img src="https://via.placeholder.com/300x220/4A90E2/ffffff?text=Smartphone" alt="Smartphone">
       <div class="card-body">
         <div class="card-title">Smartphone</div>
         <div class="card-price">$499</div>
-        <button>Add to Cart</button>
+        <div class="card-actions">
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn">Buy Now</button>
+        </div>
       </div>
     </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/300x200/ff7f50/fff?text=Headphones" alt="">
+    <div class="card" data-product-name="Headphones" data-product-price="79">
+      <img src="https://via.placeholder.com/300x220/50E3C2/ffffff?text=Headphones" alt="Headphones">
       <div class="card-body">
         <div class="card-title">Headphones</div>
         <div class="card-price">$79</div>
-        <button>Add to Cart</button>
+        <div class="card-actions">
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn">Buy Now</button>
+        </div>
       </div>
     </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/300x200/8a2be2/fff?text=Laptop" alt="">
+    <div class="card" data-product-name="Laptop" data-product-price="899">
+      <img src="https://via.placeholder.com/300x220/E74C3C/ffffff?text=Laptop" alt="Laptop">
       <div class="card-body">
         <div class="card-title">Laptop</div>
         <div class="card-price">$899</div>
-        <button>Add to Cart</button>
+        <div class="card-actions">
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn">Buy Now</button>
+        </div>
       </div>
     </div>
-    <div class="card">
-      <img src="https://via.placeholder.com/300x200/ffcc00/000?text=Camera" alt="">
+    <div class="card" data-product-name="Camera" data-product-price="299">
+      <img src="https://via.placeholder.com/300x220/F39C12/ffffff?text=Camera" alt="Camera">
       <div class="card-body">
         <div class="card-title">Camera</div>
         <div class="card-price">$299</div>
-        <button>Add to Cart</button>
+        <div class="card-actions">
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn">Buy Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-product-name="Smartwatch" data-product-price="199">
+      <img src="https://via.placeholder.com/300x220/9B59B6/ffffff?text=Smartwatch" alt="Smartwatch">
+      <div class="card-body">
+        <div class="card-title">Smartwatch</div>
+        <div class="card-price">$199</div>
+        <div class="card-actions">
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn">Buy Now</button>
+        </div>
+      </div>
+    </div>
+    <div class="card" data-product-name="Tablet" data-product-price="349">
+      <img src="https://via.placeholder.com/300x220/1ABC9C/ffffff?text=Tablet" alt="Tablet">
+      <div class="card-body">
+        <div class="card-title">Tablet</div>
+        <div class="card-price">$349</div>
+        <div class="card-actions">
+            <button class="add-to-cart-btn">Add to Cart</button>
+            <button class="buy-now-btn">Buy Now</button>
+        </div>
       </div>
     </div>
   </div>
-<marquee behavior="scroll" direction="left">Thank You! Visit again!</marquee>
+<marquee behavior="scroll" direction="left">Thank You! Visit again! We are constantly adding new products!</marquee>
   <div class="request-section">
     <p>Can't find what you're looking for?</p>
     <button class="request-btn" onclick="openModal()">Request an Item</button>
   </div>
 
-  <!-- Modal -->
+  
   <div class="modal" id="modal">
     <div class="modal-content">
       <h3>Request Product</h3>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Email" required>
-      <textarea rows="3" placeholder="Item details" required></textarea>
+      <input type="text" id="requester-name" placeholder="Your Name" required>
+      <input type="email" id="requester-email" placeholder="Email" required>
+      <textarea id="item-details" rows="4" placeholder="Item details (e.g., specific brand, model, features)" required></textarea>
       <button onclick="submitRequest()">Submit Request</button>
     </div>
   </div>
 
   <script>
+    let cart = []; 
+
+    function updateCartCount() {
+      document.getElementById("cart-count").textContent = cart.length;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+      document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        button.addEventListener('click', (event) => {
+          const card = event.target.closest('.card');
+          const productName = card.dataset.productName;
+          const productPrice = parseFloat(card.dataset.productPrice);
+
+          const item = {
+            name: productName,
+            price: productPrice,
+            quantity: 1 
+          };
+          cart.push(item);
+          updateCartCount();
+          alert(`${productName} has been added to your cart!`);
+          console.log("Current Cart:", cart); 
+        });
+      });
+
+   
+      document.querySelectorAll('.buy-now-btn').forEach(button => {
+        button.addEventListener('click', (event) => {
+          const card = event.target.closest('.card');
+          const productName = card.dataset.productName;
+          const productPrice = parseFloat(card.dataset.productPrice);
+
+         
+          alert(`You are now buying ${productName} for $${productPrice.toFixed(2)}. Proceeding to checkout!`);
+          
+        });
+      });
+
+      document.getElementById('cart-button').addEventListener('click', () => {
+        if (cart.length === 0) {
+          alert("Your cart is empty.");
+        } else {
+          let cartContent = "Items in your cart:\n";
+          let total = 0;
+          cart.forEach(item => {
+            cartContent += `- ${item.name} ($${item.price.toFixed(2)})\n`;
+            total += item.price * item.quantity;
+          });
+          cartContent += `\nTotal: $${total.toFixed(2)}`;
+          alert(cartContent);
+        }
+      });
+    });
+
+
     function openModal() {
       document.getElementById("modal").style.display = "flex";
     }
 
     function submitRequest() {
-      alert("Your request has been submitted!");
-      document.getElementById("modal").style.display = "none";
+      const name = document.getElementById("requester-name").value;
+      const email = document.getElementById("requester-email").value;
+      const details = document.getElementById("item-details").value;
+
+      if (name && email && details) {
+        const subject = encodeURIComponent("Product Request from S-Mart User");
+        const body = encodeURIComponent(
+          `Name: ${name}\n` +
+          `Email: ${email}\n` +
+          `Requested Item Details: ${details}\n\n` +
+          `This request was sent from the S-Mart website.`
+        );
+        /* added My Own Mail ID */ 
+        window.location.href = `mailto:smartcollectionforme@gmail.com?subject=${subject}&body=${body}`;
+        document.getElementById("modal").style.display = "none";
+        // Optionally clear the form after opening mailto link
+        document.getElementById("requester-name").value = '';
+        document.getElementById("requester-email").value = '';
+        document.getElementById("item-details").value = '';
+      } else {
+        alert("Please fill in all fields to submit your request.");
+      }
     }
 
     window.onclick = function(e) {
@@ -255,7 +661,7 @@ My text
       const cards = document.querySelectorAll(".card");
       cards.forEach(card => {
         const title = card.querySelector(".card-title").textContent.toLowerCase();
-        card.style.display = title.includes(input) ? "block" : "none";
+        card.style.display = title.includes(input) ? "flex" : "none";
       });
     }
   </script>
@@ -263,14 +669,12 @@ My text
         <div class="about">
       <h2>About Us</h2>
       <p>
-        Welcome to our product selling platform! Here, you can find pre-listed
-        items across different categories like Electronics and Stationary. If
-        you own any of these items and want to sell them, simply click on the
-        "Sell This" button, and a pre-filled email will be sent directly to us.
-        Our goal is to make buying and selling easy and efficient for everyone.
-        Thank you for using our service!
+        Welcome to S-Mart, your one-stop destination for quality products! We offer a curated selection of items across various categories, continually expanding our inventory to meet your needs. Our platform is designed for ease of use, ensuring a smooth and enjoyable shopping experience.
       </p>
-      <p>&copy; 2025 GOMTI. All rights reserved.</p>
+      <p>
+        Can't find a specific item? Use our "Request an Item" feature, and we'll do our best to source it for you. We value your feedback and are committed to providing excellent customer service. Thank you for choosing S-Mart – where smart people shop for smart deals!
+      </p>
+      <p>&copy; 2025 S-Mart. All rights reserved.</p>
     </div>
     </footer>
 </body>
